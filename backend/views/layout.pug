@@ -10,32 +10,9 @@ html(lang="es")
 
   body(style="background-color: #f8f9fa;") 
     .container
-        // Añadir un fondo gris claro al cuerpo
-        if currentUser.rol
-            header
-                nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
-                    a.navbar-brand(href="/") Reservas
-                    button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
-                        span.navbar-toggler-icon
-                    div#navbarNav.collapse.navbar-collapse
-                        ul.navbar-nav
-                            li.nav-item.active
-                                a.nav-link(href="/") Inicio
-                            if !currentUser
-                                li.nav-item
-                                    a.nav-link(href="/auth/login") Iniciar Sesión
-                            else 
-                                li.nav-item.dropdown
-                                    a.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Reservas 
-                                    ul.dropdown-menu
-                                        li
-                                            a.dropdown-item(href="/reservas/create") Crear
-                                        li
-                                            a.dropdown-item(href="/reservas") Listado
-                                li.nav-item     
-                                    a.nav-link(href="/auth/logout") Logout
-        //else 
-            header
+        // Añadir un fondo gris claro al cuerpo    
+        //if currentUser.rol
+        header
             nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
                 a.navbar-brand(href="/") Reservas
                 button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
@@ -44,22 +21,26 @@ html(lang="es")
                     ul.navbar-nav
                         li.nav-item.active
                             a.nav-link(href="/") Inicio
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Reservas 
-                            ul.dropdown-menu
-                                li
-                                    a.dropdown-item(href="/reservas/create") Crear
-                                li
-                                    a.dropdown-item(href="/reservas") Listado
-                        li.nav-item.dropdown
-                            a.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Alojamientos 
-                            ul.dropdown-menu
-                                li
-                                    a.dropdown-item(href="/alojamiento/create") Crear
-                                li
-                                    a.dropdown-item(href="/alojamiento")
-                        
-             Agrega más elementos de menú según sea necesario
+                        if !currentUser
+                            li.nav-item
+                                a.nav-link(href="/auth/login") Iniciar Sesión
+                        else 
+                            //li.nav-item.dropdown
+                                a.nav-link.dropdown-toggle(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") Reservas 
+                                ul.dropdown-menu
+                                    li
+                                        a.dropdown-item(href="/reservas") Crear
+                                    li
+                                        a.dropdown-item(href="/reservas") Listado
+                            li.nav-item
+                                a.nav-link(href="/clientes") Clientes
+                            li.nav-item
+                                a.nav-link(href="/reservas") Reservas
+                            li.nav-item
+                                a.nav-link(href="/alojamientos") Alojamientos
+
+                            li.nav-item     
+                                a.nav-link(href="/auth/logout") Logout
 
         block content
 

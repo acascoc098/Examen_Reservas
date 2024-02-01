@@ -19,12 +19,12 @@ const clienteSchema = mongoose.Schema({
         type: String, 
         unique: true, 
         required: true
-    },
+    }/*,
     rol: {
         type: Boolean,
         unique: true,
         required: true
-    }
+    }*/
 });
 const Cliente = mongoose.model('Cliente', clienteSchema);
 module.exports = Cliente;

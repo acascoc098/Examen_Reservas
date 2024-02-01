@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    .container
+
+        .container 
+        form(action=`/clientes/edit/${cliente._id}`, method="post") 
+            label.form-label(for="nombre") Nombre:
+            input.form-control(type="text", name="nombre", required, value=`${cliente.nombre}`)
+            br
+            label.form-label(for="apellido") Apellido:
+            input.form-control(type="text", name="apellido", required, value=`${cliente.apellido}`)
+            br
+            label.form-label(for="telefono") Telefono:
+            input.form-control(type="tel", name="telefono", required, value=`${cliente.telefono}`)
+            br
+            label.form-label(for="email") Correo electrónico:
+            input.form-control(type="email", name="email", required, value=`${cliente.email}`)
+            br
+            button.btn.btn-success(type="submit") Guardar
+            a.btn.btn-danger(href="/clientes") Cancelar

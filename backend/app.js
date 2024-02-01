@@ -47,11 +47,14 @@ mongoose.connect(process.env.MONGO_URL);
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 // añadimos las rutas de RESERVAS.JS
-const reservaRoutes = require('./routes/reservas');
+const reservaRoutes = require('./routes/reserva');
 app.use('/reservas', reservaRoutes);
 // añadimos las rutas de ALOJAMIENTOS.JS
 const alojamientoRouter = require('./routes/alojamientos');
 app.use('/alojamientos', alojamientoRouter);
+// añadimos las rutas de CLIENTES.JS
+const clienteRouter = require('./routes/clientes');
+app.use('/clientes', clienteRouter);
 
 
 // por defecto vamos a /auth

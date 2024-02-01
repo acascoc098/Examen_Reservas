@@ -1,7 +1,7 @@
 # RA4: Bases de datos Orientadas a Objetos (JSON)
 
 ## GIT
-Para crear el repositorio podemos hacerlo en la terminal de la carpeta del proyecto:
+Para crear el repositorio podemos hacerlo en la _terminal_ de la carpeta del proyecto:
 ```
 git init
 ```
@@ -9,11 +9,11 @@ Y creamos la rama dev de la siguiente forma:
 ```
 git checkout -b dev
 ```
-Para hacer el merge lo que haremos será movernos a la rama main y desde ahí hacer:
+Para hacer el _merge_ lo que haremos será movernos a la rama _main_ y desde ahí hacer:
 ```
 git merge dev
 ```
-O de manera gráfica en el visual studio, en el apartado de git nos aparece la opción de iniciar el repositorio y subirlo a remoto, después haremos un chekout to y creamos la rama dev. Posteriromente haremos el merge.
+O de manera gráfica en el visual studio, en el apartado de _git_ nos aparece la opción de iniciar el repositorio y subirlo a remoto, después haremos un _chekout_ to y creamos la rama _dev_. Posteriromente haremos el merge.
 
 # BACKEND
 Para crear el `package.json` nos vamos a la carpeta de backend y en la terminal ponemos:
@@ -80,3 +80,6 @@ Donde `MONGO_URI` es la URL de conexión a Mongo y `BACKEND_PORT` es el puerto d
 
 # MONGO
 Para crear la base de datos lo que hacemos es desde mongo creamos la base de datos reservas.
+
+## BBDD Documentales
+Un ejemplo para una base de datos documetal sería la acción de reservar en un sitio, ya que está en un constante cambio, al igual que una zapatería ya que el precio siempre está cambiando.

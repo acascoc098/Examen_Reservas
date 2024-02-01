@@ -13,7 +13,6 @@ block content
                     th Alojamiento
                     th Teléfono
                     th Dirección Alojamiento
-                    th Acciones
             tbody
                 each reserva in reservas
                     tr
@@ -23,8 +22,8 @@ block content
                         td= reserva.alojamiento.nombre
                         td= reserva.alojamiento.telefono
                         td= reserva.alojamiento.direccion                        
-                        td
-                            a(href=`/alojamientos/edit/${matricula._id}`) Editar
+                        //td
+                            a(href=`/alojamientos/edit/${alojamiento._id}`) Editar
                             span | 
-                            a(href=`/alojamientos/delete/${matricula._id}`) Eliminar
+                            a(href=`/alojamientos/delete/${alojamiento._id}`) Eliminar
         br

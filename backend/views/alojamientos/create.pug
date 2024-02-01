@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    .container
+        h3 Crear alojamiento
+        .container 
+        form(action=`/alojamientos/create`, method="post") 
+            label.form-label(for="nombre") Nombre:
+            input.form-control(type="text", name="nombre", required)
+            br
+            label.form-label(for="telefono") Teléfono:
+            input.form-control(type="tel", name="telefono", required)
+            br
+            label.form-label(for="direccion") Dirección:
+            input.form-control(type="text", name="direccion", required)
+            br
+            
+            button.btn.btn-success(type="submit") Guardar
+            a.btn.btn-danger(href="/alojamientos") Cancelar
+
