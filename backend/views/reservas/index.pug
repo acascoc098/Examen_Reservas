@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    .container 
+        h1 Lista de Reservas
+        br
+        table.table.table-hover.table-striped.table-bordered
+            thead
+                tr
+                    th Fecha
+                    th Nombre Cliente 
+                    th Apellidos Cliente                
+                    th Alojamiento
+                    th Teléfono
+                    th Dirección Alojamiento
+                    th Acciones
+            tbody
+                each reserva in reservas
+                    tr
+                        td= reserva.fecha
+                        td= reserva.cliente.nombre
+                        td= reserva.cliente.apellido
+                        td= reserva.alojamiento.nombre
+                        td= reserva.alojamiento.telefono
+                        td= reserva.alojamiento.direccion                        
+                        td
+                            a(href=`/alojamientos/edit/${matricula._id}`) Editar
+                            span | 
+                            a(href=`/alojamientos/delete/${matricula._id}`) Eliminar
+        br

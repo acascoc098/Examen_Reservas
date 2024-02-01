@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+    .container
+        h4 Hacer reserva en #{cliente.nombre} / #{cliente.apellido}
+        p Seleccione alojamiento que reserva el cliente seleccionado
+        .container 
+        form(action=`/reserva/cliente/${cliente._id}`, method="post") 
+            label.form-label(for="alojamiento") Nombre:
+            select.form-control(name="alojamiento", required)
+                each alojamiento in alojamientos
+                    option(value=`${alojamiento._id}`) #{alojamiento.nombre} (#{alojamiento.ciclo})
+            br
+            label.form-label(for="date") Fecha:
+            input.form-control(type="text", name="date", required, value="2024")
+            br 
+
+            button.btn.btn-success(type="submit") Guardar
+            a.btn.btn-danger(href="/") Cancelar

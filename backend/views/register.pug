@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .container 
+        h1 Alta en el sistema
+
+        form(action="/auth/register", method="post") 
+            
+            label.form-label(for="username") Nombre de Usuario
+            input.form-control(type="text", name="username", id="username")
+            br
+            
+            label.form-label(for="password") Contraseña
+            input.form-control(type="password", name="password" id="password")
+            br
+            
+            label.form-label(for="email") Correo Electrónico 
+            input.form-control(type="email", name="email", id="email")
+            br
+            
+            button.btn.btn-success(type="submit") Sign up!
