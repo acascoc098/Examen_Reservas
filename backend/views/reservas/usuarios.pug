@@ -2,15 +2,18 @@ extends ../layout
 
 block content
     .container 
-        h3 Lista de Reservas por usuario 
+        h3 Lista de Reservas para usuario #{usuario.nombre} #{usuario.apellido}
         p Seleccione un usuario de la lista: 
         form.row.g-3(id='formulario' action=`/reservas/usuario`, method="post") 
             .col-md-6
                 label.form-label(for="usuario") Seleccione un cliente:
                 select.form-control(name="usuario", required, id="usuario")
                     option(value="") Pulse para desplegar la lista
-                    each usuario in usuarios                        
-                        option(value=`${usuario._id}`) #{usuario.nombre} #{usuario.apellido} // #{usuario.telefono}
+                    each user in usuarios
+                    if `${user._id}` === `${usuario._id}`
+                        option(value=`${user._id}` selected) #{user.nombre} #{user.apellido} // #{user.telefono}
+                    else
+                        option(value=`${user._id}`) #{user.nombre} #{user.apellido} // #{user.telefono}
         br
         table.table.table-hover.table-striped.table-bordered
             thead

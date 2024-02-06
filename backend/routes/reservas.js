@@ -20,29 +20,33 @@ router.get('/', async (req, res) =>{
 
 // Ver las reservas para el alojamiento con ID=id
 router.get('/alojamiento/:id', async (req, res) => {
-    try {
+    try {        
         const alojamiento = await Alojamiento.findById(req.params.id);
-        const usuarios = await Usuario.find();
-        if (alojamiento && usuarios)
-            res.render('reservas/reserva', {
-                alojamiento: alojamiento,
-                usuarios: usuarios
-            });
-        else
-            res.render('mensaje', {mensajePagina:'No encuentro esa alojamiento en la base de datos'});
+        const alojamientos = await Alojamiento.find();
+        const reservas = await Reserva.find({alojamiento: alojamiento._id}).
+            populate('usuario').populate('alojamiento').exec();
+        if (reservas && alojamiento) {
+            res.render('reservas/alojamientos', 
+                {
+                    alojamiento: alojamiento,
+                    reservas: reservas, 
+                    alojamientos: alojamientos
+                });
+        } else {
+            res.render('mensaje', {mensajePagina:'No encuentro ese alojamiento en la base de datos'});
+        }
     } catch (error) {
         console.log(error);
-        res.render('mensaje', {mensajePagina: 'Error al reservar de alojamiento'});
-
+        res.render('mensaje', {mensajePagina: 'Error al mostrar reservas para un alojamiento'});
     }
 
 });
 
-router.post('/alojamiento/:id', async (req, res) => {
+router.post('/alojamiento', async (req, res) => {
     try {
         const {usuario, year} = req.body;
 
-        const alojamiento = await Alojamiento.findById(req.params.id); 
+        const alojamiento = await Alojamiento.findById(req.body.alojamiento); 
         const usuarioMongo = await Usuario.findById(usuario);
         
         if(alojamiento && usuarioMongo) {
@@ -71,14 +75,19 @@ router.get('/usuario/:id', async (req, res) => {
         const usuarios = await Usuario.find();
         const reservas = await Reserva.find({usuario: usuario._id}).
             populate('usuario').populate('alojamiento').exec();
-        if (reservas && usuarios) {
-            res.render('reservas/usuarios', {reservas:reservas, usuarios:usuarios});
+        if (reservas && usuario) {
+            res.render('reservas/usuarios', 
+                {
+                    usuario: usuario,
+                    reservas: reservas, 
+                    usuarios: usuarios
+                });
         } else {
-            res.render('mensaje', {mensajePagina:'No encuentro ese alojamiento en la base de datos'});
+            res.render('mensaje', {mensajePagina:'No encuentro ese usuario en la base de datos'});
         }
     } catch (error) {
         console.log(error);
-        res.render('mensaje', {mensajePagina: 'Error al reservar de alojamiento'});
+        res.render('mensaje', {mensajePagina: 'Error al mostrar reservas para un usuario'});
     }
 
 });
@@ -91,7 +100,12 @@ router.post('/usuario', async (req, res) => {
         const reservas = await Reserva.find({usuario: usuario._id}).
             populate('usuario').populate('alojamiento').exec();
         if (reservas && usuario) {
-            res.render('reservas/usuarios', {reservas:reservas, usuarios:usuarios});
+            res.render('reservas/usuarios', 
+            {
+                usuario: usuario,
+                reservas:reservas, 
+                usuarios:usuarios
+            });
         } else {
             res.render('mensaje', {mensajePagina:'No encuentro esa alojamiento en la base de datos'});
         }
