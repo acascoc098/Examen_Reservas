@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    .container 
+        h1 Borrado de usuarios
+
+        form.row.g-3(action=`/usuarios/delete/${usuario._id}`, method="post") 
+            
+            .col-md-6
+                label.form-label(for="username") Usuario
+                input.form-control(type="text", name="username", id="username", disabled, value=`${usuario.username}`)
+                label.form-label(for="password") Contraseña
+                input.form-control(type="password", name="password", disabled, id="password")
+                br
+            .col-md-6
+                label.form-label(for="nombre") Nombre
+                input.form-control(type="text", name="nombre", id="nombre", disabled, value=`${usuario.nombre}`)
+                label.form-label(for="apellido") Apellidos
+                input.form-control(type="text", name="apellido" id="apellido", disabled, value=`${usuario.apellido}`)
+            .col-md-6
+                label.form-label(for="telefono") Teléfono
+                input.form-control(type="number", name="telefono", id="telefono", disabled, value=`${usuario.telefono}`)
+            .col-md-6
+                label.form-label(for="email") Correo Electrónico 
+                input.form-control(type="email", name="email", id="email", disabled, value=`${usuario.email}`)
+            .col-md-6
+                label.form-label(for="rol") Seleccione un tipo de usuario:
+                input.form-control(name="rol", value=`${usuario.rol}`, disabled )                     
+            .col-12
+                p Va a proceder al borrado del usuario 
+                p ¿Está seguro?
+                button.btn.btn-danger.m-1(type="submit") Sí
+                a.btn.btn-primary.m-1(href="/usuarios") No

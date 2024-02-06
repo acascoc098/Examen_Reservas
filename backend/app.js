@@ -17,7 +17,7 @@ app.use(express.static('public'));
 
 // cargarmos y configuramos el middleware para gestión de sesiones
 app.use(session({
-    secret: 'msupersecretoinconfesable',
+    secret: 'misupersecretoquenadiesabe',
     resave: true,
     saveUninitialized: false
 }));
@@ -35,6 +35,7 @@ app.use((req,res,next)=>{
         }
     } else {
         // ya estamos logeados
+        
         next();
     }
 });
@@ -46,15 +47,29 @@ mongoose.connect(process.env.MONGO_URL);
 // añadimos las rutas de AUTH.JS
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-// añadimos las rutas de RESERVAS.JS
-const reservaRoutes = require('./routes/reserva');
-app.use('/reservas', reservaRoutes);
-// añadimos las rutas de ALOJAMIENTOS.JS
+
+const authorize = (roles) => {
+    return (req, res, next) => {
+        const { user } = req.session;
+        if (!user || !roles.includes(user.rol)) {
+            return res.render('mensaje', {mensajePagina:'No tienes permiso para acceder a esta página.'});
+        }
+        next();
+    };
+};
+
+// añadimos las rutas de ALUMNOS.JS
+const reservaRoutes = require('./routes/reservas');
+app.use('/reservas', authorize(['operario']), reservaRoutes);
+// añadimos las rutas de ASIGNATURAS.JS
 const alojamientoRouter = require('./routes/alojamientos');
-app.use('/alojamientos', alojamientoRouter);
-// añadimos las rutas de CLIENTES.JS
-const clienteRouter = require('./routes/clientes');
-app.use('/clientes', clienteRouter);
+app.use('/alojamientos', authorize(['operario']), alojamientoRouter);
+// añadimos las rutas de MATRICULA.JS
+const usuarioRoutes = require('./routes/usuarios');
+app.use('/usuarios', authorize(['operario']), usuarioRoutes);
+// añadimos las rutas para hacer reservas
+const reservarRoutes = require('./routes/reservar');
+app.use('/reservar', authorize(['cliente', 'operario']), reservarRoutes);
 
 
 // por defecto vamos a /auth

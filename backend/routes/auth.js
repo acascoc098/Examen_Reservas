@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
+const Usuario = require('../models/Usuario');
 
 router.get('/', (req, res) => {
     res.render('index');
@@ -12,13 +12,10 @@ router.get('/register', (req, res) =>{
 });
 
 router.post('/register', async (req, res) =>{
-    const {username, password, email} = req.body;
-    const usuario = new User({
-        username: username,
-        password: bcrypt.hashSync(password, 10),
-        email: email
-        }
-    );
+    const datosUsuario = req.body;
+    datosUsuario.rol='cliente'
+    datosUsuario.password= bcrypt.hashSync(datosUsuario.password, 10);
+    const usuario = new Usuario(datosUsuario);
     try {
         await usuario.save();
         res.render('mensaje', {tituloPagina:'Registro usuarios', mensajePagina: 'Usuario registrado'});
@@ -34,14 +31,12 @@ router.get('/login', (req, res) =>{
 router.post('/login', async (req, res)=>{
     const {username, password} = req.body;
 
-    const usuario = await User.findOne({
+    const usuario = await Usuario.findOne({
         username: username
     });
 
-    if (usuario && bcrypt.compareSync(password, usuario.password)){
-        // usuario.password = '1234567890';
+    if (usuario && bcrypt.compareSync(password, usuario.password)){        
         req.session.user = usuario;
-        //res.render('mensaje', {tituloPagina:'Login', mensajePagina: 'Usuario logeado'});
         res.redirect('/');
     } else {
         res.render('mensaje', {tituloPagina:'LOGIN', mensajePagina: 'Credenciales no válidas'});

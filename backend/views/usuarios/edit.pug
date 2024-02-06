@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    .container 
+        h1 Actualizar un usuario
+
+        form.row.g-3(action=`/usuarios/edit/${usuario._id}`, method="post") 
+            
+            .col-md-6
+                label.form-label(for="username") Usuario
+                input.form-control(type="text", name="username", id="username", required, value=`${usuario.username}`)
+                label.form-label(for="password") Contraseña
+                input.form-control(type="password", name="password", id="password")
+                br
+            .col-md-6
+                label.form-label(for="nombre") Nombre
+                input.form-control(type="text", name="nombre", id="nombre", required, value=`${usuario.nombre}`)
+                label.form-label(for="apellido") Apellidos
+                input.form-control(type="text", name="apellido" id="apellido", required, value=`${usuario.apellido}`)
+            .col-md-6
+                label.form-label(for="telefono") Teléfono
+                input.form-control(type="number", name="telefono", id="telefono", required, value=`${usuario.telefono}`)
+            .col-md-6
+                label.form-label(for="email") Correo Electrónico 
+                input.form-control(type="email", name="email", id="email", required, value=`${usuario.email}`)
+            .col-md-6
+                p Seleccione un tipo de usuario:
+                select.form-control(name="rol", required) 
+                    option(value="cliente" selected=(usuario.rol === "cliente")) Cliente
+                    option(value="operario" selected=(usuario.rol === "operario")) Operario
+            .col-12
+                button.btn.btn-success.m-1(type="submit") Añadir
+                a.btn.btn-danger.m-1(href="/usuarios") Cancelar

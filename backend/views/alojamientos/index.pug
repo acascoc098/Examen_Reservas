@@ -8,16 +8,24 @@ block content
             thead
                 tr
                 th Nombre
-                th Teléfono
-                th Dirección
+                th Ciudad
+                th Tipo
+                th Precio
                 th Acción
+                th Reservas 
             tbody
-                each alojamiento in alojamientos
-                    tr
-                        td= alojamiento.nombre
-                        td= alojamiento.telefono
-                        td= alojamiento.direccion
-                        td
-                            a(href=`/reservas/alojamiento/${alojamiento._id}`) Reservar
+                if alojamientos
+                    each alojamiento in alojamientos
+                        tr
+                            td= alojamiento.nombre
+                            td= alojamiento.ciudad
+                            td= alojamiento.tipo
+                            td= alojamiento.precio                  
+                            td
+                                a(href=`/alojamientos/edit/${alojamiento._id}`) Editar
+                                span | 
+                                a(href=`/alojamientos/delete/${alojamiento._id}`) Eliminar
+                            td 
+                                a(href=`/matriculas/alojamiento/${alojamiento._id}`) Mostrar sus reservas
         br
-        a(href="/alojamientos/create") Crear nuevo alojamiento 
+        a(href="/alojamientos/create") Crear nuevo alojamiento

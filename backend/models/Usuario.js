@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const clienteSchema = mongoose.Schema({    
+const usuarioSchema = mongoose.Schema({    
     nombre: {
         type: String, 
         unique: false, 
@@ -11,7 +11,7 @@ const clienteSchema = mongoose.Schema({
         required: true
     }, 
     telefono: {
-        type: String, 
+        type: Number, 
         unique: true, 
         required: true
     }, 
@@ -19,12 +19,21 @@ const clienteSchema = mongoose.Schema({
         type: String, 
         unique: true, 
         required: true
-    }/*,
-    rol: {
-        type: Boolean,
-        unique: true,
+    },
+    username: {
+        type: String, 
+        unique: true, 
         required: true
-    }*/
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    rol: {
+        type: String, 
+        unique: false, 
+        required: true
+    }
 });
-const Cliente = mongoose.model('Cliente', clienteSchema);
-module.exports = Cliente;
+const Usuario = mongoose.model('Usuario', usuarioSchema);
+module.exports = Usuario;

@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const reservaSchema = mongoose.Schema({    
-    cliente: {
+const Usuario = require('./Usuario');
+const Alojamiento = require('./Alojamiento');
+
+const reservaSchema = mongoose.Schema({
+    usuario: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Cliente',
+        ref: 'Usuario',
         required: true
     }, 
     alojamiento: {
@@ -11,10 +14,17 @@ const reservaSchema = mongoose.Schema({
         required: true
     }, 
     fecha: {
-        type: String, 
-        unique: true, 
+        type: Date, 
+        unique: false, 
+        required: true
+    }, 
+    precio:{
+        type: Number,
+        unique: false,
         required: true
     }
 });
+
 const Reserva = mongoose.model('Reserva', reservaSchema);
 module.exports = Reserva;
+
