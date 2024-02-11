@@ -35,6 +35,7 @@ app.use((req,res,next)=>{
         }
     } else {
         // ya estamos logeados
+        
         next();
     }
 });
@@ -46,15 +47,28 @@ mongoose.connect(process.env.MONGO_URL);
 // añadimos las rutas de AUTH.JS
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-// añadimos las rutas de RESERVAS.JS
-const reservaRoutes = require('./routes/reserva');
-app.use('/reservas', reservaRoutes);
-// añadimos las rutas de ALOJAMIENTOS.JS
+
+const authorize = (roles) => {
+    return (req, res, next) => {
+        const { user } = req.session;
+        if (!user || !roles.includes(user.rol)) {
+            return res.render('mensaje', {mensajePagina:'No tienes permiso para acceder a esta página.'});
+        }
+        next();
+    };
+};
+
+const reservaRoutes = require('./routes/reservas');
+app.use('/reservas', authorize(['operario']), reservaRoutes);
+
 const alojamientoRouter = require('./routes/alojamientos');
-app.use('/alojamientos', alojamientoRouter);
-// añadimos las rutas de CLIENTES.JS
-const clienteRouter = require('./routes/clientes');
-app.use('/clientes', clienteRouter);
+app.use('/alojamientos', authorize(['operario']), alojamientoRouter);
+
+const usuarioRoutes = require('./routes/usuarios');
+app.use('/usuarios', authorize(['operario']), usuarioRoutes);
+
+const reservarRoutes = require('./routes/reservar');
+app.use('/reservar', authorize(['cliente', 'operario']), reservarRoutes);
 
 
 // por defecto vamos a /auth

@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+    .container 
+        h1 Lista de Usuarios
+        br
+        table.table.table-hover.table-striped.table-bordered
+            thead
+                tr
+                th Nombre
+                th Apellidos
+                th Correo electrónico 
+                th Teléfono
+                th Rol
+                th Acciones
+            tbody
+                each usuario in usuarios
+                    tr
+                        td= usuario.nombre
+                        td= usuario.apellido
+                        td= usuario.email
+                        td= usuario.telefono
+                        td= usuario.rol
+                        td
+                            a(href=`/usuarios/edit/${usuario._id}`) Editar
+                            span | 
+                            a(href=`/usuarios/delete/${usuario._id}`) Eliminar
+                            span | 
+                            a(href=`/reservas/usuario/${usuario._id}`) Ver reservas
+        br
+        a(href="/usuarios/create") Crear nuevo usuario 

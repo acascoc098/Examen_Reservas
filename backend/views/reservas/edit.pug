@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+    .container
+        h3 Editar Reserva
+        form(action=`/reservas/edit/${reserva._id}`, method="post")
+            label.form-label(for='nuevaFecha') Nueva Fecha:
+            input.form-control(type='date', name='nuevaFecha', value=reserva.fecha, required)
+            button.btn.btn-success(type='submit') Guardar
+            a.btn.btn-danger(href='/reservas') Cancelar

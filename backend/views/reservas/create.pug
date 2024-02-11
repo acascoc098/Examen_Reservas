@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+    .container
+        h3 Crear reserva
+        .container 
+        form.row.g-3(action=`/reservas/create`, method="post") 
+            
+            .col-md-6
+                label.form-label(for="alojamiento") Seleccione un alojamiento:
+                select.form-control(name="alojamiento", required, id="alojamiento")
+                    each alojamiento in alojamientos
+                        option(value=`${alojamiento._id}`) #{alojamiento.nombre} // #{alojamiento.ciudad} // #{alojamiento.precio}                
+            
+            .col-md-6
+                label.form-label(for="usuario") Seleccione un cliente:
+                select.form-control(name="usuario", required, id="usuario")
+                    each usuario in usuarios
+                        option(value=`${usuario._id}`) #{usuario.nombre} #{usuario.apellido} // #{usuario.telefono}
+            
+            .col-md-6
+                label.form-label(for="fecha") Fecha:
+                input.form-control(type="date", name="fecha", required, id="fecha")
+
+            .col-md-12
+                button.m-1.btn.btn-success(type="submit") Guardar
+                a.btn.btn-danger(href="/alojamientos") Cancelar
+

@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+    .container
+        h3 Eliminar Reserva
+        p ¿Está seguro de que desea eliminar la reserva?
+        form(action=`/reservas/delete/${reserva._id}`, method="post")
+            button.btn.btn-danger(type='submit') Eliminar
+            a.btn.btn-secondary(href='/reservas') Cancelar

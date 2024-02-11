@@ -2,7 +2,17 @@ extends ../layout
 
 block content
     .container 
-        h1 Lista de Reservas
+        h3 Lista de Reservas para #{usuario.nombre} #{usuario.apellido}
+        p Seleccione un usuario de la lista: 
+        form.row.g-3(id='formulario' action=`/reservas/usuario`, method="post") 
+            .col-md-6
+                label.form-label(for='usuario') Seleccione un cliente:
+                select.form-control(name='usuario', required, id='usuario')
+                    each user in usuarios
+                        if `${user._id}` === `${usuario._id}`
+                            option(value=`${user._id}` selected) #{user.nombre} #{user.apellido} // #{user.telefono}
+                        else
+                            option(value=`${user._id}`) #{user.nombre} #{user.apellido} // #{user.telefono}
         br
         table.table.table-hover.table-striped.table-bordered
             thead
@@ -28,4 +38,10 @@ block content
                             span | 
                             a(href=`/reservas/delete/${reserva._id}`) Eliminar
         br
-        a.btn.btn-success(href="/reservas/create") Añadir nueva reserva
+
+      
+    script.
+        document.getElementById('usuario').addEventListener('change', () => {
+            document.getElementById('formulario').submit();
+        });
+

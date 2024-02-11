@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const Alojamiento = require('../models/Alojamiento');
 
-// muestra en una tabla la lista de 
+// muestra en una tabla la lista de alojamientos
 router.get('/', async(req, res) => {
     const listado = await Alojamiento.find({});
     res.render('alojamientos/index', {alojamientos: listado});
@@ -14,20 +14,15 @@ router.get('/create', (req, res) =>{
     res.render('alojamientos/create')
 });
 
-// guarda el alojaiento en la BBDD
+// guarda el alojamiento en la BBDD
 router.post('/create', async (req, res) =>{
-    const {nombre, telefono, direccion} = req.body;
-    const alojamiento = new Alojamiento({
-        nombre: nombre,
-        telefono: telefono,
-        direccion: direccion
-    });
+    const alojamiento = new Alojamiento(req.body);
     try {
         await alojamiento.save();
         res.redirect('/alojamientos');
     } catch (error) {
         res.render('mensaje', {mensajePagina: 'ERROR: ' + 
-            'El correo electrónico o el teléfono proporcionado ya existía en la base de datos.'})
+            'El nombre de alojamiento proporcionado ya existía en la base de datos.'})
     }
 });
 
@@ -46,14 +41,11 @@ router.get('/edit/:id', async (req, res) => {
 
 router.post('/edit/:id', async (req, res) => {
     try {
-        const {nombre, telefono, direccion} = req.body;
-        const alojamiento = new Alojamiento({
-        nombre: nombre,
-        telefono: telefono,
-        direccion: direccion
-        });
+        const alojamiento = req.body;
+        await Alojamiento.findByIdAndUpdate(req.params.id, alojamiento);
         res.redirect('/alojamientos');
-    } catch {
+    } catch (error) {
+        console.log(error);
         res.render('mensaje', {mensajePagina: 'Error al intentar editar alojamiento'});
     }
 
@@ -66,7 +58,7 @@ router.get('/delete/:id', async (req, res) => {
         if (alojamiento)
             res.render('alojamientos/delete', {alojamiento: alojamiento});
         else
-            res.render('mensaje', {mensajePagina:'No encuentro ese alojamiento en la base de datos'});
+            res.render('mensaje', {mensajePagina:'No encuentro esa alojamiento en la base de datos'});
     } catch {
         res.render('mensaje', {mensajePagina: 'Error al intentar borrar alojamiento'});
     }
@@ -80,7 +72,6 @@ router.post('/delete/:id', async (req, res) => {
     } catch {
         res.render('mensaje', {mensajePagina: 'Error al intentar borrar alojamiento'});
     }
-
 });
 
 

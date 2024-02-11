@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const reservaSchema = mongoose.Schema({    
-    cliente: {
+    usuario: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Cliente',
+        ref: 'User',
         required: true
     }, 
     alojamiento: {
@@ -13,6 +13,12 @@ const reservaSchema = mongoose.Schema({
     fecha: {
         type: String, 
         unique: true, 
+        required: true
+    }
+    , 
+    precio:{
+        type: Number,
+        unique: false,
         required: true
     }
 });

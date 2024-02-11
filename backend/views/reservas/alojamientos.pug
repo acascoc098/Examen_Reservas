@@ -2,7 +2,17 @@ extends ../layout
 
 block content
     .container 
-        h1 Lista de Reservas
+        h3 Lista de Reservas para #{alojamiento.nombre} 
+        p Seleccione un alojamiento de la lista: 
+        form.row.g-3(id='formulario' action=`/reservas/usuario`, method="post") 
+            .col-md-6
+                label.form-label(for='alojamiento') Seleccione un alojamiento:
+                select.form-control(name='alojamiento', required, id='alojamiento')
+                    each user in alojamientos
+                        if `${user._id}` === `${alojamiento._id}`
+                            option(value=`${user._id}` selected) #{user.nombre} // #{user.ciudad} // #{user.tipo} // #{user.precio}
+                        else
+                            option(value=`${user._id}`) #{user.nombre} // #{user.ciudad} // #{user.tipo} // #{user.precio}
         br
         table.table.table-hover.table-striped.table-bordered
             thead
@@ -28,4 +38,10 @@ block content
                             span | 
                             a(href=`/reservas/delete/${reserva._id}`) Eliminar
         br
-        a.btn.btn-success(href="/reservas/create") Añadir nueva reserva
+
+      
+    script.
+        document.getElementById('alojamiento').addEventListener('change', () => {
+            document.getElementById('formulario').submit();
+        });
+

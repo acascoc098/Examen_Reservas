@@ -1,25 +1,26 @@
+
 extends ../layout
 
 block content
     .container
-        h3 Crear alojamiento
+        h3 Modificar alojamiento
         .container 
-        form.row.g-3(action=`/alojamientos/create`, method="post") 
+        form.row.g-3(action=`/alojamientos/edit/${alojamiento._id}`, method="post") 
             
             .col-md-6
                 label.form-label(for="nombre") Nombre:
-                input.form-control(type="text", name="nombre", required)            
+                input.form-control(type="text", name="nombre", required, value=`${alojamiento.nombre}`)            
                 label.form-label(for="ciudad") Ciudad:
-                input.form-control(type="text", name="ciudad", required)
+                input.form-control(type="text", name="ciudad", required, value=`${alojamiento.ciudad}`)
             .col-md-6
                 label.form-label(for="tipo") Tipo:
-                select.form-control(name="tipo", required)
+                select.form-control(name="tipo", required, value=`${alojamiento.tipo}`)
                     option(value="hotel") Hotel 
                     option(value="hostal") Hostal 
                     option(value="apartahotel") Aparta-hotel 
             
                 label.form-label(for="precio") Precio:
-                input.form-control(type="number", min="0.00" max="1000.00" step="0.01", name="precio", required)
+                input.form-control(type="number", name="precio", min="0.00" max="1000.00" step="0.01", required, value=`${alojamiento.precio}`)
 
             .col-md-12
                 button.m-1.btn.btn-success(type="submit") Guardar

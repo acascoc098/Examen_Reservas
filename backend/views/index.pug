@@ -4,18 +4,12 @@ block content
     h1 Bienvenido #{currentUser ? currentUser.username : 'Invitado'}
 
     if !currentUser
-        //currentUser.rol intento para separar cliente de operario
         ul 
             li 
                 a(href="/auth/login") Sign in (entrar en el sistema)
             li 
                 a(href="/auth/register") Sign up (alta usuario)
     else 
-        p Logeado como: #{currentUser.username}
+        p Conectado como: #{currentUser.username}
         p 
-            a(href="/auth/logout") Logout
-
-    //else
-        ul
-            li 
-                a(href="/auth/") Bienvenido operario: #{currentUser.username}
+            a(href="/auth/logout") Logout 

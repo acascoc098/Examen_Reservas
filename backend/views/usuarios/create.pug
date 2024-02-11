@@ -1,10 +1,10 @@
-extends layout
+extends ../layout
 
 block content
     .container 
-        h1 Alta en el sistema
+        h1 Crear un usuario
 
-        form.row.g-3(action="/auth/register", method="post") 
+        form.row.g-3(action="/usuarios/create", method="post") 
             
             .col-md-6
                 label.form-label(for="username") Usuario
@@ -23,5 +23,14 @@ block content
             .col-md-6
                 label.form-label(for="email") Correo Electrónico 
                 input.form-control(type="email", name="email", id="email", required)
+            .col-md-6
+                p Seleccione un tipo de usuario:
+                .form-check
+                    label.form-check-label(for="cliente") Cliente
+                    input.form-check-input(type="radio", name="rol", value="cliente", id="cliente", required)
+                .form-check
+                    label.form-check-label(for="operario") Operario
+                    input.form-check-input(type="radio", name="rol", value="operario", id="operario")
             .col-12
-            button.btn.btn-success(type="submit") Sign up!
+                button.btn.btn-success.m-1(type="submit") Añadir
+                a.btn.btn-danger.m-1(href="/usuarios") Cancelar
